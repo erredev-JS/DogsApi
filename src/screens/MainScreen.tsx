@@ -6,8 +6,10 @@ export const MainScreen = () => {
   return (
     <div>
       <Header />
+      <div className="flex flex-col pb-20">
       <RandomPet />
       <PetsSelection />
+      </div>
     </div>
   );
 };
