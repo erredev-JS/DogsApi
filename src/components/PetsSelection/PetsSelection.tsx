@@ -37,7 +37,7 @@ export const PetsSelection = () => {
  
    return (
 
-     <div className="w-4/5 m-auto flex justify-center flex-col gap-5 bg-gray-300 p-10 rounded-2xl shadow-2xl border-2 mt-10">
+     <div className="w-4/5 m-auto flex justify-center flex-col gap-5 bg-gray-300 p-10 rounded-2xl shadow-2xl border-2 mt-10 max-w-[500px]">
 
        <h1 className="text-center text-3xl">Dog Selection</h1>
 

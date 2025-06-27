@@ -1,3 +1,4 @@
+import { Footer } from "../components/Footer/Footer";
 import { Header } from "../components/Header/Header";
 import { PetsSelection } from "../components/PetsSelection/PetsSelection";
 import { RandomPet } from "../components/RandomPet/RandomPet";
@@ -10,6 +11,7 @@ export const MainScreen = () => {
       <RandomPet />
       <PetsSelection />
       </div>
+      <Footer/>
     </div>
   );
 };

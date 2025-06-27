@@ -10,7 +10,7 @@ export const RandomPet = () => {
   };
 
   return (
-    <div className="w-4/5 m-auto flex justify-center flex-col gap-5 bg-gray-300 p-10 rounded-2xl shadow-2xl border-2 mt-10">
+    <div className="w-4/5 m-auto flex justify-center flex-col gap-5 bg-gray-300 p-10 rounded-2xl shadow-2xl border-2 mt-10 max-w-[500px]">
       <h1 className="text-center text-3xl">Dog Randomizer</h1>
       <div className="w-4/5 h-[300px] m-auto">
         <img src={dogUrl.length > 0 ? dogUrl : "https://ralfvanveen.com/wp-content/uploads/2021/06/Placeholder-_-Begrippenlijst.svg"} alt="" className="w-full h-full" />
