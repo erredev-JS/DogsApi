@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { getBreeds, getRandomPetByBreed } from "../../crud/crudDogs";
+import { getBreeds, getRandomPet, getRandomPetByBreed } from "../../crud/crudDogs";
 
 export const PetsSelection = () => {
     const [dogUrl, setDogUrl] = useState("");
@@ -8,6 +8,8 @@ export const PetsSelection = () => {
     const [breeds, setBreeds] = useState<string[]>([])
 
     const [selectedBred, setSelectedBred] = useState("")
+
+    const [loading, setLoading] = useState(false)
 
     const handleBreeds =  async () => {
 
@@ -22,12 +24,27 @@ export const PetsSelection = () => {
         handleBreeds()
         
     },
-
     [])
 
+ useEffect(() => {
+    (async() => {
+      try {
+        setLoading(true)
+        const response  = await getRandomPet()
+        setDogUrl(response)
+        setLoading(false)
+      } catch (error) {
+        console.error(error)
+      }
+    })()
+  }, [])
+
+
    const handleClick = async () => {
+    setLoading(true)
      const response = await getRandomPetByBreed(selectedBred);
      setDogUrl(response);
+     setLoading(false)
    };
 
    const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -43,17 +60,24 @@ export const PetsSelection = () => {
 
        <div className="w-4/5 h-[300px] m-auto">
 
-         <img src={dogUrl.length > 0 ? dogUrl : "https://ralfvanveen.com/wp-content/uploads/2021/06/Placeholder-_-Begrippenlijst.svg"} alt="" className="w-full h-full" />
+          {loading ? <img src="https://endlessicons.com/wp-content/uploads/2012/11/loading-icon-614x460.png" className="animate-spin"/> :  <img src={dogUrl.length > 0 ? dogUrl : "https://ralfvanveen.com/wp-content/uploads/2021/06/Placeholder-_-Begrippenlijst.svg"} alt="" className="w-full h-full" />}
        </div>
 
        <div className="flex">
 
-      <select  onChange={handleSelectChange} className="bg-white text-center border w-1/2">
+      <select  onChange={handleSelectChange} className="bg-white text-center border w-1/2 cursor-pointer">
       <option value="">Select a breed</option>
-        {breeds.map((breed) => (<option value={breed}>{breed}</option>))}
+        {breeds.map((breed, i) => (<option value={breed} key={i}>{breed}</option>))}
       </select>
 
-       <button onClick={handleClick} className="bg-blue-900 rounded px-4 py-1 hover:bg-blue-500 cursor-pointer text-white font-bold w-1/2 m-auto">
+       <button
+  onClick={handleClick}
+  disabled={selectedBred.length <= 1}
+  className={`rounded px-4 py-1 text-white font-bold w-1/2 m-auto 
+    ${selectedBred.length > 1 
+      ? 'bg-blue-900 hover:bg-blue-500 cursor-pointer' 
+      : 'bg-slate-900 cursor-not-allowed'}`}
+>
        {selectedBred.length <= 1 ? 'Select a breed' : `Get a ${selectedBred}`}
        </button>
 
